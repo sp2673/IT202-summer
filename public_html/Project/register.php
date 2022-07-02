@@ -7,6 +7,10 @@ require(__DIR__ . "/../../partials/nav.php");
         <input type="email" name="email" required />
     </div>
     <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" required maxlength="30" />
+    </div>
+    <div>
         <label for="pw">Password</label>
         <input type="password" id="pw" name="password" required minlength="8" />
     </div>
@@ -26,61 +30,60 @@ require(__DIR__ . "/../../partials/nav.php");
 </script>
 <?php
 //TODO 2: add PHP Code
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"]) && isset($_POST["username"])) {
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
-    $confirm = se(
-        $_POST,
-        "confirm",
-        "",
-        false
-    );
-    //TODO 3
+    $confirm = se($_POST, "confirm", "", false);
+    $username = se($_POST, "username", "", false);
     $hasError = false;
     if (empty($email)) {
-        flash("Email must not be empty");
+        echo "Email must not be empty";
         $hasError = true;
     }
     //sanitize
+    //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = sanitize_email($email);
-    //validate
-    if (!is_valid_email($email)) {
-        flash("Invalid email address");
+    /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email";
+        $hasError = true;
+    }*/
+    if (!is_valid_email($email)){
+        echo "Please enter a valid email <br>";
+        $hasError = true;
+    }
+    if(!preg_match('/^[a-z0-9_-]{3,30}$/', $username)){
+        flash("Username must only contain lower case letters, number, hypen and/or underscores and be between 3-30 characters");
         $hasError = true;
     }
     if (empty($password)) {
-        flash("password must not be empty");
+        echo "Password must not be empty";
         $hasError = true;
     }
     if (empty($confirm)) {
-        flash("Confirm password must not be empty");
+        echo "Confirm Password must not be empty";
         $hasError = true;
     }
     if (strlen($password) < 8) {
-        flash("Password too short");
+        echo "Password must be >8 characters";
         $hasError = true;
     }
-    if (
-        strlen($password) > 0 && $password !== $confirm
-    ) {
-        flash("Passwords must match");
+    if (strlen($password) > 0 && $password !== $confirm) {
+        echo "Passwords must match";
         $hasError = true;
     }
     if (!$hasError) {
         //TODO 4
+        echo "Welcome, $email";
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES(:email, :password)");
+        $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
         try {
-            $stmt->execute([":email" => $email, ":password" => $hash]);
-            flash("Successfully registered!");
+            $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
+            echo "Successfully registered!";
         } catch (Exception $e) {
-            flash("There was a problem registering");
-            flash("<pre>" . var_export($e, true) . "</pre>");
+            echo "There was a problem registering";
+            echo "<pre>" . var_export($e, true) . "</pre>";
         }
     }
 }
-?>
-<?php
-require(__DIR__ . "/../../partials/flash.php");
 ?>
