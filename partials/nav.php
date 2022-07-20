@@ -5,7 +5,7 @@ $domain = $_SERVER["HTTP_HOST"];
 if (strpos($domain, ":")) {
     $domain = explode(":", $domain)[0];
 }
-$localWorks = true; //some people have issues with localhost for the cookie params
+$localWorks = false; //some people have issues with localhost for the cookie params
 //if you're one of those people make this false
 
 //this is an extra condition added to "resolve" the localhost issue for the session cookie
@@ -32,6 +32,7 @@ session_start();
         <?php if (is_logged_in()) : ?>
             <li><a href="<?php echo get_url('home.php'); ?>">Home</a></li>
             <li><a href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
+            <li><a href="<?php echo get_url('dashboard.php'); ?>">Dashboard</a></li>
         <?php endif; ?>
         <?php if (!is_logged_in()) : ?>
             <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
