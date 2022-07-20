@@ -1,11 +1,12 @@
-CREATE TABLE IF NOT EXISTS Accounts(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    account_number VARCHAR(12) UNIQUE ,
-    user_id int ,
-    balance int NOT NULL DEFAULT 0,
-    account_type VARCHAR(255) NOT NULL ,
-    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+CREATE TABLE IF NOT EXISTS `Bank Accounts`
+(
+    id             int auto_increment,
+    account_number varchar(12) NOT NULL,
+    user_id        int,
+    account_type   varchar(20),
+    opened_date    TIMESTAMP default CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    balance        decimal(12, 2) default 0.00,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES Users (id)
 )
