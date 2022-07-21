@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS Transactions(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    account_src int,
-    account_dest int,
+    account_src int NOT NULL,
+    account_dest int NULL,
     balance_change int,
     transaction_type VARCHAR(20),
-    memo VARCHAR(200),
+    memo TEXT DEFAULT NULL,
     expected_total int,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
