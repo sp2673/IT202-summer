@@ -4,7 +4,7 @@ function refreshBalance()
 {
     if (is_logged_in()) {
         //cache account balance via transactions table
-        $query = "UPDATE Account set balance = (SELECT IFNULL(SUM(amount), 0) from Transactions WHERE account_dest = :src) where id = :src";
+        $query = "UPDATE Account set balance = (SELECT IFNULL(SUM(amount), 0) from Transactions WHERE account_src = :src) where id = :src";
         $db = getDB();
         $stmt = $db->prepare($query);
         try {
