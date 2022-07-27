@@ -21,9 +21,18 @@ if(isset($_POST["save"])){
     $account_type = "Checking"; 
     $user= get_user_id();
     $balance = $_POST["balance"];
+    $memo = "new account creation";
     $db = getDB();
 
     $act_dest_id = intval($_SESSION['user']['id']);
+    $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = '000000000000'");
+    $results = $stmt->execute();
+    $r = $stmt->fetch(PDO::FETCH_ASSOC);
+    $world_id = $r["id"];
+    $account_src = intval($world_id);
+
+    
+  
     
     $action_type = "Deposit";
 
@@ -41,9 +50,16 @@ if(isset($_POST["save"])){
     
 
     if($success){
-      flash("Created successfully with id: " . $db->lastInsertId());
+      
+      flash("Checking account successfully with reference id: " . $db->lastInsertId());
 
-      logTransaction($balance, $transaction_type, $account_src = -1, $account_dest, $memo="new Account created");
+      $stmt=$db->prepare("SELECT id FROM Accounts WHERE account_number = $account_number");
+      $results = $stmt->execute();
+      $r = $stmt->fetch(PDO::FETCH_ASSOC);
+      $src_act = $r["id"];
+      $account_dest = intval($src_act);
+
+      doBankAction( $act_src_id , $act_dest_id, $balance, $action_type, $memo);
 
 
     }
