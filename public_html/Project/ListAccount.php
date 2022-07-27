@@ -11,7 +11,7 @@ if(isset($_POST["save"])){
     $user= intval($_SESSION['user']['id']);;
     $db = getDB();
 
-    $statement = $db ->query("SELECT * FROM Accounts order by id DESC limit 5 ");
+    $statement = $db ->query("SELECT * FROM Accounts where user_id = $user order by id DESC limit 5 ");
     echo "<table border=2 width=50% height = 50%>";
     echo "<tr><th>Account Name</th><th>Account Type</th><th>Last Updated</th><th>Balance</th></tr>";
     foreach ($statement as $row) {
@@ -22,7 +22,7 @@ if(isset($_POST["save"])){
         
         echo"<tr>";
         
-        echo "<td>$account_number</td>"; echo "<td>$account_type</td>"; echo "<td>$modified </td>"; echo "<td>$balance </td>";
+        echo "<td><a href='AcctHistory.php?account=$account_number'>$account_number</a></td>"; echo "<td>$account_type</td>"; echo "<td>$modified </td>"; echo "<td>$balance </td>";
         echo "</tr>";
     }
 
