@@ -43,7 +43,7 @@ if(isset($_POST["save"])){
     if($success){
       flash("Created successfully with id: " . $db->lastInsertId());
 
-      logTransaction($balance, $transaction_type, $account_src = -1, $account_dest = -1 );
+      logTransaction($balance, $transaction_type, $account_src = -1, $account_dest, $memo="new Account created");
 
 
     }
