@@ -10,8 +10,8 @@ require_once(__DIR__ . "/../../partials/nav.php");
             <li><a href="<?php echo get_url('createAccount.php'); ?>">Create Account</a></li>
             <li><a href="<?php echo get_url('ListAccount.php'); ?>">My Accounts</a></li>
             <li><a href="<?php echo get_url('MakeTrans.php'); ?>">Deposit or withdraw</a></li>
+            <li><a href="<?php echo get_url('InternalTransfer.php'); ?>">transfer between accounts</a></li>
             
-            <li><a href="#">Transfer Funds</a></li>
             <li><a href="#">View Profile</a></li>
         <?php endif; ?>
     </ul>
