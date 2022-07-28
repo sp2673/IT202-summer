@@ -173,7 +173,7 @@ function doBankAction($acc1, $acc2, $balance_change, $transaction_total, $memo='
                  
                 break;
 
-                case"Withdrawal":
+                case"Transfer":
                     $source_balance = $source_total - $balance_change ;
                     $destination_balance = (($destination_total + $balance_change)) ;
 
