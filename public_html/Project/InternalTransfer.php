@@ -33,7 +33,7 @@ $accounts = getDropDown();
             <?php endforeach;?>
             </select>
         
-        <label>Amount</label> 
+        <label><br>Amount</label> 
         <input type="number" min="1.00" name="amount">
         
 
