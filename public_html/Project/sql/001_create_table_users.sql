@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS `Users` (
     `id` INT NOT NULL AUTO_INCREMENT,
+    `first_name` VARCHAR(30),
+    `last_name` VARCHAR(30),
     `email` VARCHAR(100) NOT NULL,
     `password` VARCHAR(60) NOT NULL,
     `created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
