@@ -2,7 +2,59 @@
 require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 ?>
+<form method="POST">   
+<h4>User Profile</h4>   
+<h5>Enter or Update First and Last Names</h5>
+<label>Enter First Name</label> 
+<input type="text"  name="first_name">
+
+<label>Enter Last Name</label> 
+<input type="text"  name="last_name">
+
+<input type ="submit" name="save_names" value="Submit"/>
+</form> 
 <?php
+$db = getDB();
+$id = get_user_id();
+//make query to pull first and last name from DB and display under name form
+$display_stmt = $db->prepare("SELECT first_name, last_name from Users where id = :id");
+
+$display_success = $display_stmt->execute([
+   ":id" => $id,
+]);
+
+$results = $display_stmt->fetch(PDO::FETCH_ASSOC);
+$first_name = $results["first_name"]; 
+$last_name = $results["last_name"]; 
+ob_start();
+echo "First Name:  " . $first_name."<br>" ;
+echo "Last Name:  " . $last_name."<br><br><br>" ;
+
+if (isset($_POST["save_names"])) {
+   $db = getDB();
+   $first_name = $_POST["first_name"];
+   $last_name = $_POST["last_name"];
+   $id = get_user_id() ;
+
+   $insert_stmt = $db->prepare("UPDATE Users set first_name = :first_name , last_name = :last_name where id = :id");
+
+   $insert_success = $insert_stmt->execute([
+       ":first_name" => $first_name,
+       "last_name" => $last_name,
+       ":id" => $id,
+   ]);
+   
+   if($insert_success){
+           ob_end_clean();
+           flash("Records for first and last names updated!");
+           echo "First Name:  " . $first_name."<br>" ;
+           echo "Last Name:  " . $last_name."<br><br><br>" ;
+
+       } 
+
+}
+
+
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
