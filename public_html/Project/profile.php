@@ -1,8 +1,68 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
-is_logged_in(true);
+require_once(__DIR__ . "/../../lib/flash_messages.php");
+if (!is_logged_in()) {
+    die(header("Location: login.php"));
+}
 ?>
 <form method="POST">   
+
+
+<h4>Users Profile</h4>
+<h5> Profile View to Public or Private</h5>
+<input type ="submit" name="Public" value="Public"/>
+<input type ="submit" name="Private" value="Private"/>
+</form>
+
+<?php
+$db =getDB();
+
+$id = get_user_id();
+//display account_view settings
+$display_account_view_stmt = $db->prepare("SELECT account_view from Users where id = :id");
+
+$display_success = $display_account_view_stmt->execute([
+    ":id" => $id,
+]);
+$settings = $display_account_view_stmt->fetch(PDO::FETCH_ASSOC);
+$account_view = $settings["account_view"];
+ob_start();
+echo "Account view setting: " . $account_view."<br>" ;
+
+if (isset($_POST["Public"])) {
+    $account_view = $_POST["Public"];
+    $insert_stmt = $db->prepare("UPDATE Users set account_view = :account_view where id = :id");
+    $insert_success + $insert_stmt->execute([
+        ":account_view" => $account_view,
+        ":id" => $id,
+    ]);
+
+    if($insert_success){
+        ob_end_clean();
+        flash("Account view Settings Successfully Updated!");
+        echo "Account View Setting: " . $account_view."<br>" ;
+    }
+} else if (isset($_POST["Private"])){
+    $account_view = $_POST["Private"];
+
+    $insert_stmt = $db->prepare("UPDATE Users set account_view = :account_view where id = :id");
+
+    $insert_success = $insert_stmt->execute([
+        ":account_view" => $account_view,
+        ":id" => $id,
+    ]);
+
+    if($insert_success){
+        ob_end_clean();
+        flash("Account View Settings Successfully Updated!");
+        echo "Account View Setting: " . $account_view."<br>";
+
+    }
+}
+
+?>
+<form method="POST">
+
 <h4>User Profile</h4>   
 <h5>Enter or Update First and Last Names</h5>
 <label>Enter First Name</label> 
