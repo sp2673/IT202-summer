@@ -1,0 +1,1 @@
+ALTER TABLE Accounts ADD  APY  decimal(12,2) default 0.00
