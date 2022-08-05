@@ -49,7 +49,27 @@ function get_user_id()
 function getDropDown(){
     $user = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number FROM Accounts WHERE user_id = :id");
+    
+    $stmt = $db->prepare("SELECT id, account_number FROM Accounts WHERE user_id = :id  and not account_type = 'Loan' and not is_active = 'False'");
+    $r = $stmt->execute([
+        ":id"=>$user
+    ]);  
+
+    if($r){
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $results; 
+    }
+    else{
+     flash("There was a problem fetching the accounts. Please try again.");
+    }
+
+}
+
+function getDropDownLoan(){
+    $user = get_user_id();
+    $db = getDB();
+    $stmt = $db->prepare("SELECT id, account_number FROM `Bank Accounts` WHERE `user_id` = :id and not is_active = 'False'");
+
     $r = $stmt->execute([
         ":id"=>$user
     ]);  

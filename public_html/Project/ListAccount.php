@@ -18,7 +18,11 @@ if(isset($_POST["save"])){
         $account_number = $row['account_number'];
         $account_type = $row['account_type'];
         $modified = $row['modified'];
-        $balance = $row['balance'];
+        if ($account_type == "Loan"){
+          $balance = -1* $row['balance']. ".00";
+        }else{
+          $balance = $row['balance'];
+        }
         
         echo"<tr>";
         

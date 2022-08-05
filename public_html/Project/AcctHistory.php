@@ -1,8 +1,7 @@
 <?php require_once(__DIR__ . "/../../partials/nav.php");  ?>
 
 <?php 
-//echo "TESTING";
-//echo ($_GET['account']) ;
+
 
 $db = getDB();
 $account = $_GET['account'];
@@ -14,7 +13,11 @@ echo "<table border=2 width=50% height = 20%>";
     foreach ($account_basics as $row) {
         $act_numb = $row['account_number'];
         $act_type = $row['account_type'];
-        $balance = $row['balance'];
+        if ($act_type == 'Loan'){
+            $balance = -1* $row['balance'] . ".00";
+        }else{
+            $balance= $row['balance'];
+        }
         $created = $row['created'];
         
         echo"<tr>";
