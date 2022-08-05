@@ -9,7 +9,7 @@ $account = $_GET['account'];
 $account_basics = $db->query("SELECT * FROM Accounts where account_number = $account");
 
 echo "<table border=2 width=50% height = 20%>";
-    echo "<tr><th>Account Number</th><th>Account Type</th><th>Balance</th><th>Acct Opened</th></tr>";
+    echo "<tr><th>Account Number</th><th>Account Type</th><th>Balance</th><th>APY</th><th>Acct Opened</th></tr>";
     foreach ($account_basics as $row) {
         $act_numb = $row['account_number'];
         $act_type = $row['account_type'];
@@ -18,11 +18,16 @@ echo "<table border=2 width=50% height = 20%>";
         }else{
             $balance= $row['balance'];
         }
+        $apy = $row["APY"];
+
+        if($apy == 0.00){
+            $apy = "-";
+        }       
         $created = $row['created'];
         
         echo"<tr>";
         
-        echo "<td>$act_numb</td>"; echo "<td>$act_type </td>"; echo "<td>$balance</td>";echo "<td>$created</td>";
+        echo "<td>$act_numb</td>"; echo "<td>$act_type </td>"; echo "<td>$balance</td>";echo "<td>$apy</td>"; echo "<td>$created</td>";
         echo "</tr>";
     }
 
