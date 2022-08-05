@@ -13,7 +13,7 @@ if(isset($_POST["save"])){
 
     $statement = $db ->query("SELECT * FROM Accounts where user_id = $user order by id DESC limit 5 ");
     echo "<table border=2 width=50% height = 50%>";
-    echo "<tr><th>Account Name</th><th>Account Type</th><th>Last Updated</th><th>Balance</th></tr>";
+    echo "<tr><th>Account Name</th><th>Account Type</th><th>Last Updated</th><th>Balance</th><th>APY</th></tr>";
     foreach ($statement as $row) {
         $account_number = $row['account_number'];
         $account_type = $row['account_type'];
@@ -23,10 +23,14 @@ if(isset($_POST["save"])){
         }else{
           $balance = $row['balance'];
         }
-        
+        $apy = $row["APY"];
+
+        if($apy == 0.00){
+            $apy = "-";
+        }       
         echo"<tr>";
         
-        echo "<td><a href='AcctHistory.php?account=$account_number'>$account_number</a></td>"; echo "<td>$account_type</td>"; echo "<td>$modified </td>"; echo "<td>$balance </td>";
+        echo "<td><a href='account_history.php?account=$account_number'>$account_number</a></td>"; echo "<td>$account_type</td>"; echo "<td>$last_updated </td>"; echo "<td>$balance </td>"; echo "<td>$apy</td>";
         echo "</tr>";
     }
 
