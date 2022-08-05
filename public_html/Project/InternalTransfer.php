@@ -10,6 +10,7 @@ if(!is_logged_in()){
 ?>
 <?php
 $accounts = getDropDown();
+$accounts = getDropDownLoan();
 ?>
 
 
@@ -26,9 +27,9 @@ $accounts = getDropDown();
             </select>
          <label>Select Destination Account</label placeholder="0">
             <select name="transfer_destination">
-            <?php foreach($accounts as $row):?>
-                <option value="<?php echo $row["account_number"];?>"> 
-                <?php echo $row["account_number"];?>
+            <?php foreach($accounts2 as $row2):?>
+                <option value="<?php echo $row2["account_number"];?>"> 
+                <?php echo $row2["account_number"];?>
                 </option>
             <?php endforeach;?>
             </select>
