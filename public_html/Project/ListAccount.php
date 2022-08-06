@@ -30,7 +30,7 @@ if(isset($_POST["save"])){
         }       
         echo"<tr>";
         
-        echo "<td><a href='account_history.php?account=$account_number'>$account_number</a></td>"; echo "<td>$account_type</td>"; echo "<td>$last_updated </td>"; echo "<td>$balance </td>"; echo "<td>$apy</td>";
+        echo "<td><a href='account_history.php?account=$account_number'>$account_number</a></td>"; echo "<td>$account_type</td>"; echo "<td>$modified </td>"; echo "<td>$balance </td>"; echo "<td>$apy</td>";
         echo "</tr>";
     }
 

@@ -1,2 +1,0 @@
-ALTER TABLE Accounts 
-    ADD COLUMN `is_active` BOOLEAN DEFAULT True

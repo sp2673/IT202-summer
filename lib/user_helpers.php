@@ -68,7 +68,7 @@ function getDropDown(){
 function getDropDownLoan(){
     $user = get_user_id();
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number FROM `Bank Accounts` WHERE `user_id` = :id and not is_active = 'False'");
+    $stmt = $db->prepare("SELECT id, account_number FROM Accounts WHERE `user_id` = :id and not is_active = 'False'");
 
     $r = $stmt->execute([
         ":id"=>$user
