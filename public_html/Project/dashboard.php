@@ -13,6 +13,7 @@ require_once(__DIR__ . "/../../partials/nav.php");
             <li><a href="<?php echo get_url('InternalTransfer.php'); ?>">Transfer between accounts</a></li>
             <li><a href="<?php echo get_url('externalTransfer.php'); ?>">Transfer to external accounts</a></li>
             <li><a href="<?php echo get_url('Loans.php'); ?>">Loans</a></li>
+            <li><a href="<?php echo get_url('closeAcct.php'); ?>">close account</a></li>
             <li><a href="<?php echo get_url('profile.php'); ?>">View Profile</a></li>
             
         <?php endif; ?>
