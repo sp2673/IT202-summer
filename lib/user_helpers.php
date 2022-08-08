@@ -64,7 +64,7 @@ function getDropDown(){
     }
 
 }
-
+                                 //SP2673 08/05/2022
 function getDropDownLoan(){
     $user = get_user_id();
     $db = getDB();

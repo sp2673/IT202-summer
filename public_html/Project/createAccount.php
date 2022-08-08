@@ -70,9 +70,8 @@ if(isset($_POST["save"])){
             flash("Error creating account. Please try again or contact your bank for further assistance.");
           }
           
-  } else if ($account_type == "Savings"){
-           //DB checks for duplicate accounts when entry is inserted and throws duplicate record exception which sould be 
-        //easily remedied by the user trying again as the chances of having two matching random numbers twice in a row is incredibly low
+  } else if ($account_type == "Savings"){  //sp2673 08/05/2022
+            
         $account_number = random_int(100000000000,999999999999);
           
         $user= get_user_id();
