@@ -47,8 +47,10 @@ $accounts = getDropDown();
 
         $last4digits = $_POST["last4digits"];
         $dest_last_name = $_POST["dest_last_name"];
-
-        $get_destination_acct=$db->prepare("SELECT account_number FROM `Bank Accounts` b JOIN Users u on u.id = b.user_id WHERE u.last_name = :last_name AND b.account_number LIKE  :account_number AND NOT b.is_active = 'False' LIMIT 1");
+                   
+        //SP2673 08/05/2022
+        $get_destination_acct=$db->prepare("SELECT account_number FROM `Bank Accounts` b JOIN Users u on u.id = b.user_id 
+        WHERE u.last_name = :last_name AND b.account_number LIKE  :account_number AND NOT b.is_active = 'False' LIMIT 1");
         $success = $get_destination_acct->execute([
             ":last_name"=>$dest_last_name,
             ":account_number"=>"%$last4digits", 
